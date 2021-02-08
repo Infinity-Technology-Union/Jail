@@ -7,6 +7,7 @@ PLUGIN_METADATA = {
     'name': 'jail',
     'description': 'jail软封禁',
     'author': 'Guang_Chen_',
+    'link': 'https://github.com/Infinity-Technology-Union/Jail',
     'dependencies': {
         'mcdreforged': '>=1.0.0',
     }
