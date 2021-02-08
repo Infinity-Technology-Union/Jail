@@ -1,2 +1,6 @@
-# Jail
-a plugin of MCDR to enable softblock some cheaters
+这是一个用于软封禁小天才的MCDR插件
+---
+### ~~bug~~ 特性
+1. 在软封禁过程中玩家仍可以打开箱子
+2. 玩家可以通过跳跃进行移动
+3. 玩家可以使用拳头攻击玩家
