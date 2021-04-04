@@ -1,12 +1,16 @@
 import json
 import os
 import datetime
+
 PLUGIN_METADATA = {
     'id': 'jail',
-    'version': '2021208',
+    'version': '1.0.0',
     'name': 'jail',
-    'description': 'jail软封禁',
-    'author': 'Guang_Chen_',
+    'description': '软封禁一些小天才',
+    'author': [
+        'Guang_Chen_',
+        'MSDNicrosoft'
+    ],
     'link': 'https://github.com/Infinity-Technology-Union/Jail',
     'dependencies': {
         'mcdreforged': '>=1.0.0',
@@ -46,12 +50,12 @@ def on_user_info(server, info):
             nowtime = datetime.datetime.now()
             targettime = (nowtime + datetime.timedelta(minutes=int(t[2]))).strftime("%Y-%m-%d %H:%M:%S")
             config['players'][t[1]] = targettime
-            fuckplayer(server, t[1])
+            fuck_player(server, t[1])
             server.reply(info, '§4§l完成，{}将被透到 {}'.format(t[1],targettime))
             WriteConfig(config)
         elif t[0] == '!!unjail' and len(t) == 2 and t[1] in config['players']:
             server.execute('/effect clear {}'.format(t[1]))
-            server.reply(info, '§4§l{}不再被透了'.format(t[1]))
+            server.reply(info, '§4§l{} 不再被透了'.format(t[1]))
             del config['players'][t[1]]
             WriteConfig(config)
 
@@ -68,15 +72,20 @@ def on_player_joined(server, player, info):
         targettime = datetime.datetime.strptime(
             config['players'][player], "%Y-%m-%d %H:%M:%S").second
         if calctime(player) <= 0:
-            fuckplayer(server, player)
-            server.tell(player, '§4§l您的下次苏醒时间为：{}'.format(
+            fuck_player(server, player)
+            server.tell(player, '§4§l您下次苏醒时间为：{}'.format(
                 config['players'][player]))
         else:
             del config['players'][player]
             WriteConfig(config)
 
 
-def fuckplayer(server, player):
+def fuck_player(server, player):
+    server.execute('/gamemode {} spectator')
+    server.execute('/scripts unload s')
+    server.execute('/scripts unload c')
+
+"""
     server.execute(
         '/effect give {} minecraft:slowness {} 254 true'.format(player, calctime(player)))
     server.execute(
@@ -89,3 +98,5 @@ def fuckplayer(server, player):
         '/effect give {} minecraft:blindness {} 254 true'.format(player, calctime(player)))
     server.execute(
         '/effect give {} minecraft:saturation {} 254 true'.format(player, calctime(player)))
+"""
+
